@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://blog.nonfin.cn</id>
+    <title>Thinker&apos;s Space</title>
+    <updated>2024-02-22T13:52:24.858Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://blog.nonfin.cn"/>
+    <link rel="self" href="https://blog.nonfin.cn/atom.xml"/>
+    <subtitle>这是一个兴趣使然的博客小站~</subtitle>
+    <logo>https://blog.nonfin.cn/images/avatar.png</logo>
+    <icon>https://blog.nonfin.cn/favicon.ico</icon>
+    <rights>All rights reserved 2024, Thinker&apos;s Space</rights>
+    <entry>
+        <title type="html"><![CDATA[充分利用云服务器（四）：RSS]]></title>
+        <id>https://blog.nonfin.cn/oeEVsWbQ4/</id>
+        <link href="https://blog.nonfin.cn/oeEVsWbQ4/">
+        </link>
+        <updated>2022-05-23T08:24:30.000Z</updated>
+        <summary type="html"><![CDATA[<p>虽然RSS当下式微，但本人还是非常喜欢这种聚合式的信息阅读。在通过一段时间的使用与对比后，最终选择了RssHub+miniflux搭建私人的RSS服务器。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>虽然RSS当下式微，但本人还是非常喜欢这种聚合式的信息阅读。在通过一段时间的使用与对比后，最终选择了RssHub+miniflux搭建私人的RSS服务器。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[充分利用云服务器（三）：Jupyter Lab]]></title>
+        <id>https://blog.nonfin.cn/DpNa6Ecvs/</id>
+        <link href="https://blog.nonfin.cn/DpNa6Ecvs/">
+        </link>
+        <updated>2022-05-23T06:54:54.000Z</updated>
+        <summary type="html"><![CDATA[<p><code>Jupyter Lab</code>是基于<code>Jupyter</code>的下一代用户界面，基于<code>Jupyter Nodebook</code>，有更好的用户支持。在服务器上部署<code>Jupyter Lab</code>可以更便捷地从Web访问</p>
+]]></summary>
+        <content type="html"><![CDATA[<p><code>Jupyter Lab</code>是基于<code>Jupyter</code>的下一代用户界面，基于<code>Jupyter Nodebook</code>，有更好的用户支持。在服务器上部署<code>Jupyter Lab</code>可以更便捷地从Web访问</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Arch与Wayland]]></title>
+        <id>https://blog.nonfin.cn/Ne9sUbgza/</id>
+        <link href="https://blog.nonfin.cn/Ne9sUbgza/">
+        </link>
+        <updated>2021-12-31T01:19:26.000Z</updated>
+        <summary type="html"><![CDATA[<p>前一阵子Manjaro更新后切换Wayland发现体验不错，便全面切到了Wayland。又考虑到VPS上LXQt+x11vnc的组合经常性崩溃，就想着也用上Wayland，经过一番尝试后，更换为Sway+wayvnc的组合。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>前一阵子Manjaro更新后切换Wayland发现体验不错，便全面切到了Wayland。又考虑到VPS上LXQt+x11vnc的组合经常性崩溃，就想着也用上Wayland，经过一番尝试后，更换为Sway+wayvnc的组合。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Game日志——2021年记]]></title>
+        <id>https://blog.nonfin.cn/YcKfxT_pQ/</id>
+        <link href="https://blog.nonfin.cn/YcKfxT_pQ/">
+        </link>
+        <updated>2021-12-08T05:02:15.000Z</updated>
+        <summary type="html"><![CDATA[<p>咕咕咕了很久，重启的没想到是游戏梳理（溜了溜了）。<br>
+现在梳理的是2021年推完的各类游戏（好吧主要是Gal）。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>咕咕咕了很久，重启的没想到是游戏梳理（溜了溜了）。<br>
+现在梳理的是2021年推完的各类游戏（好吧主要是Gal）。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Game日志——已通ADV梳理（截至2020）]]></title>
+        <id>https://blog.nonfin.cn/qdwhKUSDu/</id>
+        <link href="https://blog.nonfin.cn/qdwhKUSDu/">
+        </link>
+        <updated>2020-12-23T06:07:37.000Z</updated>
+        <summary type="html"><![CDATA[<p>个人玩过的ADV游戏不多，零零散散十余部，放到现在每一部都过去至少一年多了，要每部都写个日志什么的也挺困难，因此专门开一篇简单梳理，凭借着印象写，不过这样也可能更能表现出该游戏的特色吧。<strong>注意，我的梳理都含有剧透，怕被剧透的慎重阅读</strong></p>
+]]></summary>
+        <content type="html"><![CDATA[<p>个人玩过的ADV游戏不多，零零散散十余部，放到现在每一部都过去至少一年多了，要每部都写个日志什么的也挺困难，因此专门开一篇简单梳理，凭借着印象写，不过这样也可能更能表现出该游戏的特色吧。<strong>注意，我的梳理都含有剧透，怕被剧透的慎重阅读</strong></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[充分利用阿里云ECS（二）：私人网盘NextCloud]]></title>
+        <id>https://blog.nonfin.cn/joBc-bKNU/</id>
+        <link href="https://blog.nonfin.cn/joBc-bKNU/">
+        </link>
+        <updated>2020-12-21T09:12:53.000Z</updated>
+        <summary type="html"><![CDATA[<p>国内的网盘服务大多面向的是娱乐向功能，人们更多的把它当作大容量云端硬盘（百度网盘、阿里网盘、迅雷云盘等），而且对于私人信息，如相片等一般是不会上传到国内网盘的；国外网盘更多面向同步协作，但容量小，而且绝大多数需要科学上网才能使用，这种情况下，使用<code>NextCloud</code>搭建一个私人网盘就会很有作用。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>国内的网盘服务大多面向的是娱乐向功能，人们更多的把它当作大容量云端硬盘（百度网盘、阿里网盘、迅雷云盘等），而且对于私人信息，如相片等一般是不会上传到国内网盘的；国外网盘更多面向同步协作，但容量小，而且绝大多数需要科学上网才能使用，这种情况下，使用<code>NextCloud</code>搭建一个私人网盘就会很有作用。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[充分利用阿里云ECS（一）：Samba服务器]]></title>
+        <id>https://blog.nonfin.cn/3aBQmHHNV/</id>
+        <link href="https://blog.nonfin.cn/3aBQmHHNV/">
+        </link>
+        <updated>2020-12-17T14:53:22.000Z</updated>
+        <summary type="html"><![CDATA[<p>这一阵子我一直在折腾各种云同步相关，这时我想到我阿里云上之前被搁置的<code>Samba</code>服务器搭建。由于之前病毒通过445端口进行大规模肆虐，因此网络运营商将公网445端口直接封掉，所以在服务器安全组里开了445端口也是没用的，而我是想通过<code>Windows</code>访问的，因此了解这一情况后我就暂时搁置掉了，今天重新捡起来。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>这一阵子我一直在折腾各种云同步相关，这时我想到我阿里云上之前被搁置的<code>Samba</code>服务器搭建。由于之前病毒通过445端口进行大规模肆虐，因此网络运营商将公网445端口直接封掉，所以在服务器安全组里开了445端口也是没用的，而我是想通过<code>Windows</code>访问的，因此了解这一情况后我就暂时搁置掉了，今天重新捡起来。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Arch系Linux入门配置]]></title>
+        <id>https://blog.nonfin.cn/arch-xi-linux-shen-du-pei-zhi/</id>
+        <link href="https://blog.nonfin.cn/arch-xi-linux-shen-du-pei-zhi/">
+        </link>
+        <updated>2020-11-30T14:19:15.000Z</updated>
+        <summary type="html"><![CDATA[<p>在上手ArchLinux快一年后，我深深地被ArchLinux的强大所折服，在继Manjaro Desktop和ArchWSL后，我最终将服务器也安装成了ArchLinux。下面就来记录一下相关配置，做个备份。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>在上手ArchLinux快一年后，我深深地被ArchLinux的强大所折服，在继Manjaro Desktop和ArchWSL后，我最终将服务器也安装成了ArchLinux。下面就来记录一下相关配置，做个备份。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Game日志—《超电激冲锋卫士》]]></title>
+        <id>https://blog.nonfin.cn/gal-ri-zhi-lesslesschao-dian-ji-chong-feng-wei-shi-greatergreater/</id>
+        <link href="https://blog.nonfin.cn/gal-ri-zhi-lesslesschao-dian-ji-chong-feng-wei-shi-greatergreater/">
+        </link>
+        <updated>2020-03-02T01:02:07.000Z</updated>
+        <summary type="html"><![CDATA[<p>其实严格来说也不是日记，可能叫感想随笔更适合一些。</p>
+<p>这是第一篇，记我刚刚推完的galgame:《超电激冲锋卫士》。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>其实严格来说也不是日记，可能叫感想随笔更适合一些。</p>
+<p>这是第一篇，记我刚刚推完的galgame:《超电激冲锋卫士》。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[VScode + WSL打造生产力工具]]></title>
+        <id>https://blog.nonfin.cn/vscode-wsl-da-zao-sheng-chan-li-gong-ju/</id>
+        <link href="https://blog.nonfin.cn/vscode-wsl-da-zao-sheng-chan-li-gong-ju/">
+        </link>
+        <updated>2020-01-19T10:41:45.000Z</updated>
+        <summary type="html"><![CDATA[<p>VScode作为一款轻量强大的编辑器，win结合WSL以及官方插件能搭建一个非常好的工作环境。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>VScode作为一款轻量强大的编辑器，win结合WSL以及官方插件能搭建一个非常好的工作环境。</p>
+]]></content>
+    </entry>
+</feed>

@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="巨硬一直在推广Powershell以替代cmd，但是Powershell丑陋的界面实在令人难以忍受，尤其是在习惯了Linux美丽的终端界面后。如何美化Powershell？下面介绍一些方法以改善Powershell的使用体验。
+
+
+scoo..." />
+    <meta name="keywords" content="Win10" />
+    <link rel="stylesheet" href="https://blog.nonfin.cn/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://blog.nonfin.cn/styles/main.css">
+    <!-- 代码渲染风格css -->
+    
+        <link rel="stylesheet" href="https://blog.nonfin.cn/media/css//default.min.css">
+        
+    <!-- 代码高亮插件 -->
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js"></script>
+    <!-- 代码复制插件 -->
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <!-- live2d插件 -->
+    <link rel="stylesheet" href="https://blog.nonfin.cn/media/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <!-- 数学公式 -->
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css"
+        integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js"
+        integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js"
+        integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous">
+        </script>
+    <script>
+        renderMathInElement(document.body, {
+            delimiters: [{
+                left: "$$",
+                right: "$$",
+                display: true
+            },
+            {
+                left: "$",
+                right: "$",
+                display: false
+            }
+            ]
+        });
+    </script>
+    
+    <title>Powershell美化与强化</title>
+
+    <!-- 大纲索引css调整 -->
+    
+    <style>
+        .markdownIt-TOC {
+            margin-left: 28%;
+            padding-left: 2px;
+            width: 80%;
+        }
+
+        .markdownIt-TOC li {
+            padding-left: 8%;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div id="landlord">
+        <div class="message" style="opacity:0"></div>
+        <canvas id="live2d" width="240" height="250" class="live2d"></canvas>
+    </div>
+    <div id="domainname" style="display:none">https://blog.nonfin.cn</div>
+    <div id="content">
+        <div>
+            <!----------- 移动端导航栏👇 ----------------->
+            <div id="bar">
+                <style>
+  .navmobile {
+    z-index: 15;
+    max-height: 40vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .navbar {
+      max-width: 100vw;
+    }
+  }
+
+  @media screen and (max-width:1200px) and (min-width: 768px) {
+    @media (min-width: 768px) {
+      .navbar-nav {
+        float: right;
+        margin: 0;
+      }
+    }
+  }
+
+  @media screen and (max-width:768px) {
+    .mbapspan {
+      padding: 0;
+    }
+  }
+</style>
+<div class="pjaxloading"  onclick="pjaxloadingClose()">
+  <div class="loadingbackground"></div>
+  <div id="loading">
+    <div class="loading">
+    </div>
+  </div>
+</div>
+<nav class="navbar navbar-inverse navbar-fixed-top navmobile">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barmenu"
+        aria-expanded="false" id="barbutton">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a data-pjax class="navbar-brand" style="color:white" href="https://blog.nonfin.cn">Thinker&#39;s Space&nbsp;&nbsp;|</a>
+      <span class="navbar-brand mbapspan"><i id="mbaplayer" class="fa fa-play-circle-o" aria-hidden="true"
+          style="font-size: 28px;top: 12px;position: absolute;" onclick="aplayerPlay();"></i></span>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="barmenu">
+      <ul class="nav navbar-nav">
+        
+        
+        <li>
+          <a data-pjax href="/" style="color:white">
+            首页
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/archives" style="color:white">
+            归档
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/tags" style="color:white">
+            标签
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/post/about" style="color:white">
+            关于
+          </a>
+        </li>
+        
+        
+        
+        
+          
+        <li><a data-pjax href="https://blog.nonfin.cn/friends" style="color:white">友链</a></li>
+
+        
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+
+  <!-- 引入jQuery核心js文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+  <script>
+    let btstate = false;
+    var bt = $("#barbutton");
+    var bm = $("#barmenu");
+    bt.click(function () {
+      dropdown();
+    })
+    function dropdown() {
+      console.log(btstate);
+      //下拉
+      if (btstate == false) {
+        bt.removeClass("collapsed");
+        bt.attr("aria-expanded", "true");
+        bm.attr("aria-expanded", "true")
+        bm.fadeIn(700);
+        btstate = true;
+      }
+      else {
+        bt.addClass("collapsed");
+        bt.attr("aria-expanded", "false");
+        bm.removeClass("in");
+        bm.hide();
+        bm.attr("aria-expanded", "false");
+        btstate = false;
+      }
+    }
+  </script> 
+            </div>
+            <!----------- 移动端导航栏👆 ----------------->
+
+            <!--------------- pc端菜单栏👇 ---------------->
+            <div class="side"><head>
+    <link rel="stylesheet" href="https://blog.nonfin.cn/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://blog.nonfin.cn/styles/main.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js"></script>
+    
+        <link rel="stylesheet" href="https://blog.nonfin.cn/media/css//default.min.css">
+        
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <link rel="stylesheet" href="https://blog.nonfin.cn/media/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- fancybox -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+    <!--------- 数学公式👇---- -->
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css"
+        integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js"
+        integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js"
+        integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous">
+    </script>
+    <script>
+        renderMathInElement(document.body, {
+            delimiters: [{
+                    left: "$$",
+                    right: "$$",
+                    display: true
+                },
+                {
+                    left: "$",
+                    right: "$",
+                    display: false
+                }
+            ]
+        });
+    </script>
+    
+    <!--------- 数学公式👆----------------- -->
+    <!--------- daovocie功能👇 ------------------->
+    
+    <!--------- daovocie功能👆 ------------------->
+    <!-- -----------------twikoo评论系统引入👇 --------->
+    <script src="https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js"></script>
+    <!-- -----------------twikoo评论系统引入👆 --------->
+    <!---------------- leancloud api 功能依赖引入👇 -------->
+    <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script>
+    <!---------------- leancloud api 功能依赖引入👆 -------->
+    <!------------------ valine评论系统引入👇 ------------------>
+    <script src="https://blog.nonfin.cn/media/js/valine.min.js"></script>
+    <!------------------ valine评论系统引入👆 ------------------>
+    <!---------------- 今日诗词api功能依赖👇 ----------------------->
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <!---------------- 今日诗词api功能依赖👆 ----------------------->
+    <!---------------- 今日诗词api功能依赖👇 ----------------------->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ispeak-bber/ispeak-bber.min.js" charset="utf-8"></script>
+    <!---------------- 哔哔功能依赖👆 ----------------------->
+
+
+</head>
+
+<style>
+    body {
+        overflow-x: hidden;
+        height: 100vh;
+        overflow-y: scroll;
+        cursor: url("https://blog.nonfin.cn/media/images/mouse_cursor.png"), auto
+    }
+</style>
+
+<body>
+    <!--=------ 页面加载动态画面👇 --------------->
+    <div class="pjaxloading" onclick="pjaxloadingClose()">
+        <div class="loadingbackground"></div>
+        <div id="loading-aname">
+            <div class="loading-aname">
+            </div>
+        </div>
+    </div>
+    <!--=------ 页面加载动态画面👆 --------------->
+
+    <!--------------- 左侧菜单栏👇 ------------------------>
+    
+    <div id=side>
+        <div class="r_m_div">
+            <a onclick="showAaplayer()"><i style="font-size: 20px;"><img
+                        src='https://blog.nonfin.cn/media/images/music.png' alt="音乐播放器" class="musicbtn"></i></a>
+        </div>
+        <div class="avatar-border">
+            <img src="https://blog.nonfin.cn/images/avatar.png?v=1708609882832" class="avatar">
+        </div>
+        <div class="sitename">Thinker&#39;s Space</div>
+        <span class="description" data-text='["这是一个兴趣使然的博客小站~"]'>&nbsp;</span>
+        <div class="siteinfocontainer">
+            <span class="siteinfo">文章</span>
+            <span class="siteinfo">标签</span>
+        </div>
+        <div class="siteinfocontainer">
+            <span class="siteinfo" id="siteinfo-postsnum"></span>
+            <span class="siteinfo">8</span>
+        </div>
+        
+        <div class="search">
+            <!-- <input type="text" class="search-input" placeholder="标题搜索(●'◡'●)" /> -->
+            <input type="text" class="search-input" placeholder="标题搜索 ⚆_⚆ つ♡">
+            <div class="search-results"></div>
+        </div>
+        
+    <div class="share-button">
+        <span></span>
+        
+        <a href="https://github.com/PhoenixLjw" target="_blank"><i style="font-size: 20px;"><img class="icon"
+                    src="https://blog.nonfin.cn/media/images/github.png" alt=""></i></a>
+        
+        
+        
+        
+        
+        
+        
+        
+    </div>
+    <div id="qq" style="display:none"></div>
+    <!------------ 加载菜单按钮👇 ------------------------->
+    <div class="menucontainer">
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="首页"></i>&nbsp;<span
+                    data-text="首页">首页</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/archives" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="归档"></i>&nbsp;<span
+                    data-text="归档">归档</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/tags" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="标签"></i>&nbsp;<span
+                    data-text="标签">标签</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/post/about" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="关于"></i>&nbsp;<span
+                    data-text="关于">关于</span>
+            </a>
+        </div>
+        
+        
+
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="https://blog.nonfin.cn/friends" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="友人帐"></i>&nbsp;<span data-text="友人帐">友人帐</span>
+            </a>
+        </div>
+        
+        <!--  -->
+    </div>
+    <!------------ 加载菜单按钮👆 ------------------------->
+    <hr>
+    <style>
+    .copyright {
+        font-size: 15px;
+        color: #d9d9d9;
+    }
+
+
+    @media screen and (min-width: 1200px) {
+        .foot {
+            width: 100%;
+            height: 130px;
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        .foot {
+            display: none;
+        }
+    }
+</style>
+
+<body>
+    <div class="foot">
+        <div id="footinfo">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | Theme: <a
+                href="https://github.com/850552586/gridea-theme-fog">Fog</a>
+            <div>
+                
+                <div id="sitegotimeDate">载入天数...</div>
+                <div id="sitegotimes">载入时分秒...</div>
+                <div id="cussitetime" style="display:none">10/27/2019</div>
+                
+            </div>
+            <div>
+                
+            </div>
+            <div class="copyright" style="color:white;text-align: center;">
+            </div>
+        </div>
+
+
+
+    </div>
+</body>
+
+<script>
+    //----------------------站点运行时间
+    var now = new Date();
+
+    function createtime() {
+        var sitegotime = document.getElementById("cussitetime").innerHTML + " 00:00:00";
+        var grt = new Date(sitegotime); //此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime() + 250);
+        days = (now - grt) / 1000 / 60 / 60 / 24;
+        dnum = Math.floor(days);
+        hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
+        hnum = Math.floor(hours);
+        if (String(hnum).length == 1) {
+            hnum = "0" + hnum;
+        }
+        minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes);
+        if (String(mnum).length == 1) {
+            mnum = "0" + mnum;
+        }
+        seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds);
+        if (String(snum).length == 1) {
+            snum = "0" + snum;
+        }
+        document.getElementById("sitegotimeDate").innerHTML = "本站已安全运行 " + dnum + " 天 ";
+        document.getElementById("sitegotimes").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+
+    let intervalId = setInterval("createtime()", 250);
+</script>
+
+    </div>
+
+    <img class="moon" src="https://blog.nonfin.cn/media/images/moon.png" onclick="moonlight()">
+    <script src="https://blog.nonfin.cn/media/js/wordshow.js"></script>
+    
+    <!--------------- 左侧菜单栏👆 ------------------------>
+
+    <!----------------- 顶部菜单栏👇 ------------------------>
+    
+    <!----------------- 顶部菜单栏👆 ------------------------>
+
+<!--核心功能加载-->
+<script src="https://blog.nonfin.cn/media/js/mainfunc.js"></script>
+
+<!------------- Fog1.0版本彩蛋👇 -------------->
+    <!-- <section id="terrestrial" class="popup">
+        <a href="#" class="back">&lt; back</a>
+    </section>
+
+    <div class="flycontainer">
+        <div class="flyword">御风飞行中...</div>
+    </div>
+
+    <script>
+        $("#fog_go").click(function(){fog_go()});
+        async function fog_go(){
+            $(".bars").hide()
+            $("#live2d").hide()
+            await sleep(3000);
+            $(".flycontainer").css("display","flex");
+            $(".popup").fadeOut(500)
+            await sleep(2000);
+            var sitename = "Thinker&#39;s Space";
+            getFogUser(sitename);
+        }
+
+        function fog_goregis(){
+            var sitename = "Thinker&#39;s Space";
+            var siteurl = "https://blog.nonfin.cn";
+            regisFogUser(sitename,siteurl);
+        }
+        fog_goregis();
+    </script> -->
+<!------------- Fog1.0版本彩蛋👆 -------------->
+<script>
+    function change_topmenu(){
+        tmcolor = "antiquewhite"
+        tsnamecolor = "antiquewhite"
+        $(".navbar-inverse .navbar-nav>li>a").css("color",tmcolor)
+        $(".navbar-inverse .navbar-brand").css("color",tsnamecolor)
+        $(".navbar-fixed-top").css("border-radius","0 0 10px 10px")
+    }
+</script>
+
+<!------ 根据自定义配置声明变量👇 --------------------->
+    
+    <script>
+        var postnumChoice = true
+    </script>
+    
+    
+    <script>
+        var shareChoice = true
+    </script>
+    
+    
+    <script>
+        var donateChoice = false
+    </script>
+    
+    
+    <script>
+        var searchChoice = true
+    </script>
+    
+    <script>let postsnum = 0;</script>
+    <div id="side-posttitle" style="display: none;">
+    
+    
+    充分利用云服务器（四）：RSS
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    充分利用云服务器（三）：Jupyter Lab
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    
+    
+    Arch与Wayland
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Game日志——2021年记
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Game日志——已通ADV梳理（截至2020）
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    充分利用阿里云ECS（二）：私人网盘NextCloud
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    充分利用阿里云ECS（一）：Samba服务器
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Arch系Linux入门配置
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Game日志—《超电激冲锋卫士》
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    VScode + WSL打造生产力工具
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Powershell美化与强化
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    初次上手：CentOS 7 服务器配置
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    WSL的美化与开发环境的配置
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    
+    
+    
+    </div>
+    
+        <script>
+            var menupos = 'left';
+            $("#siteinfo-postsnum").html(postsnum);
+        </script>
+    
+    <script>
+        let commentsHide = false
+    </script>
+    <!------ 根据自定义配置声明变量👆 --------------------->
+
+
+    <!----------根据自定义配置设置图标信息👇---------->
+    <script>
+        var icondict = new Array();
+    </script>
+    
+        
+    
+    <!----------根据自定义配置设置图标信息👆---------->
+</body>
+
+<script src="https://blog.nonfin.cn/media/share/dist/Share.js"></script>
+<!-- 页面pjax测试 -->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.js"></script>
+<!--确保jQuery已经在此之前加载-->
+<!-- <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script> -->
+<script src="https://blog.nonfin.cn/media/js/all-pjax.js"></script>
+<script>
+    //-------------------------------说说功能👇--------------------------------------
+    let talksall = [];
+    let talks = [];
+    let talkindex = 0;
+    get();
+
+    function get() {
+        var t = JSON.parse('[]');
+        talkindex = t.length - 1;
+        for (var i = 0; i <= t.length - 1; i++) {
+            var d = {};
+            d["time"] = t[i].time;
+            d["author"] = t[i].author;
+            d["text"] = t[i].text;
+            d["img"] = t[i].img;
+            talksall.push(d);
+        }
+    }
+
+    function add() {
+        for (var i = talkindex; i >= 0 && i > talkindex - 3; i--) {
+            talks.push(talksall[i]);
+        }
+        talkindex = (talkindex - 3) >= 0 ? (talkindex - 3) : -1;
+        if (talkindex < 0) $("#getmorebt").hide();
+        show();
+    }
+
+    function show() {
+        var talkT = document.getElementById("talkContainer");
+        talkT.innerHTML = "";
+        for (var i = 0; i < talks.length; i++) {
+            if (talks[i].img != '') {
+                talkT.innerHTML += '\
+            <div class="talk" v-for="t in talks"> \
+                <span data-fancybox="images" href="' + talks[i].img + '"><img src="' + talks[i].img + '" class="talkimg"></span> \
+                <div class="ainfo">\
+                    <div class="ainfo-intro">\
+                        <div class="author">' + talks[i].author + '</div>·\
+                        <div class="time">' + talks[i].time + '</div>\
+                    </div>\
+                </div>\
+                <div class="talkcontent">' + talks[i].text + '\
+                </div\>\
+            ';
+            } else {
+                talkT.innerHTML += '\
+            <div class="talk" v-for="t in talks"> \
+                <div class="ainfo">\
+                    <div class="ainfo-intro">\
+                        <div class="author">' + talks[i].author + '</div>·\
+                        <div class="time">' + talks[i].time + '</div>\
+                    </div>\
+                </div>\
+                <div class="talkcontent">' + talks[i].text + '\
+                </div\>\
+            ';
+            }
+        }
+    }
+    //-------------------------------说说功能👆--------------------------------------
+</script>
+
+<!---->
+<script>
+    function replaceAvatar() {
+        twikoo_avatar = $(".tk-avatar-img");
+        for (var i = 0; i < twikoo_avatar.length; i++) {
+            var asrc = twikoo_avatar.eq(i).attr('src');
+            if (asrc.search('cn.gravatar.com') != -1) {
+                twikoo_avatar.eq(i).attr('src', 'https://blog.nonfin.cn/media/images/comavatar.png');
+            }
+        }
+    }
+
+    function showWechat() {
+        var wechat = '';
+        alert("博主微信号：" + wechat);
+        return false;
+    }
+</script>
+
+<script>
+    /**
+     * https://github.com/tangkaichuan/gridea-search
+     */
+    // 检查缓存是否最新
+    function checkCache() {
+        var caches_postsnum = localStorage.getItem("postsnum");
+        var pt = document.getElementById("side-posttitle").innerHTML;
+        pt = pt.replace(/\s+/g, '').replace(/<script>.*?<\/script>/gi, "")
+        var ptlen = pt.length;
+        var ptlen_storage = localStorage.getItem("poststitlelen");
+        if (caches_postsnum != postsnum || ptlen != ptlen_storage) {
+            console.log("更新缓存");
+            return false
+        }
+        return true;
+    }
+
+    (function () {
+        var CACHES = checkCache()
+        if (!CACHES) {
+            var NOW = Date.now()
+            var API_CONTENT = '../api-content/index.html' + '?_=' + NOW
+            preload(API_CONTENT);
+            getContents(show_getContentresult);
+        }
+
+        function show_getContentresult(data) {
+            console.log("获取成功");
+            var postslen = data["posts"].length;
+            localStorage.setItem('postsnum', postslen);
+            var poststitlelen = 0;
+            var pt = document.getElementById("side-posttitle").innerHTML;
+            pt = pt.replace(/\s+/g, '').replace(/<script>.*?<\/script>/gi, "");
+            localStorage.setItem('poststitlelen', pt.length);
+        }
+
+
+
+        // preload
+        function preload(url) {
+            var preloadLink = document.createElement('link')
+            preloadLink.href = url
+            preloadLink.rel = 'preload'
+            preloadLink.as = 'fetch'
+            preloadLink.crossOrigin = 'anonymous'
+            document.head.appendChild(preloadLink)
+        }
+
+        // 异步 GET 请求
+        function get(obj) {
+            var xhr = new XMLHttpRequest()
+            xhr.open('get', obj.url, true)
+            xhr.send(null)
+            xhr.onreadystatechange = function () {
+                // 异步请求：响应状态为4，数据加载完毕
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        obj.success(xhr.responseText)
+                    } else {
+                        obj.error(xhr.status)
+                    }
+                }
+            }
+        }
+
+        // 获取博客全文 api
+        function getContents(callback) {
+            if (CACHES) {
+                callback(CACHES.contents)
+            } else {
+                get({
+                    url: API_CONTENT,
+                    success: function (data) {
+                        callback(JSON.parse(data));
+                        localStorage.setItem('ContentsCache', data);
+                        getStorageContent();
+                    }
+                })
+            }
+        }
+    })()
+    //------------------------核心功能--pjax全局渲染👇-------------------
+    let talkinit = false;
+    $(document).pjax('a[data-pjax]', '#main', {
+        fragment: '#main',
+        timeout: 8000
+    }).on('pjax:complete', function () {
+        //清空搜索栏
+        if (searchChoice) {
+            searchInit();
+            searchInput.value = "";
+        }
+        var pl = window.location.pathname;
+        //说说更新
+        if (pl.search("talk") != -1 && !talkinit) {
+            add();
+            talkinit = true;
+        } else if (pl.search("talk") != -1) {
+            show();
+        }
+        if (pl.search("post") != -1) {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightBlock(block);
+                hljs.lineNumbersBlock(block);
+            });
+            //文章热度
+            if(postnumChoice){
+                getHotnum();
+            }
+            //文章索引
+            toginit();
+            if (shareChoice)
+                shareInit();
+            if (donateChoice)
+                donateInit();
+            if ("default" == "default"&&!commentsHide) {
+                $("#comment").hide()
+                commentsHide = true
+            }
+            lazyload();
+            codeinit();
+            if ("default" == "twikoo") {
+                //twikoo头像更换
+                setTimeout(replaceAvatar, 3000);
+                setTimeout(replaceAvatar, 8000); //部分博主站点速度加载过慢，再添加一个延迟
+            }
+        }
+        if (btstate == true)
+            dropdown();
+    }).on('pjax:start', function () {
+        $(".pjaxloading").fadeIn(50);
+    }).on('pjax:end', function () {
+        $(".pjaxloading").fadeOut(50);
+    });
+    //------------------------核心功能--pjax全局渲染👆-------------------
+
+    //-------------------------------------------------搜索
+    // 获取搜索框、搜索按钮、清空搜索、结果输出对应的元素
+    if (searchChoice) {
+        var searchInput = document.querySelector('.search-input');
+        var searchResults = document.querySelector('.search-results');
+    }
+    // 申明保存文章的标题、链接、内容的数组变量
+    var searchValue = '',
+        arrItems = [],
+        arrLinks = [],
+        arrTitles = [],
+        arrContents = [],
+        arrResults = [],
+        indexItem = [],
+        itemLength = 0;
+    var tmpDiv = document.createElement('div');
+    tmpDiv.className = 'result-item';
+
+
+    function getStorageContent() {
+        var data = localStorage.getItem('ContentsCache');
+        data = JSON.parse(data);
+        posts = data["posts"];
+        for (var i = 0; i < posts.length; i++) {
+            arrLinks[i] = posts[i].link;
+            arrTitles[i] = posts[i].title;
+            arrContents[i] = posts[i].content;
+            itemLength++;
+        }
+    }
+    if (checkCache())
+        getStorageContent();
+    // 输入框内容变化后就开始匹配，可以不用点按钮
+    // 经测试，onkeydown, onchange 等方法效果不太理想，
+    // 存在输入延迟等问题，最后发现触发 input 事件最理想，
+    // 并且可以处理中文输入法拼写的变化
+    searchInput.oninput = function () {
+        setTimeout(searchConfirm, 0);
+    }
+    searchInput.onfocus = function () {
+        searchResults.style.display = 'block';
+    }
+
+    function searchConfirm() {
+        if (searchInput.value == '') {
+            searchResults.style.display = 'none';
+        } else if (searchInput.value.search(/^\s+$/) >= 0) {
+            // 检测输入值全是空白的情况
+            searchInit();
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '请输入有效内容...';
+            searchResults.appendChild(itemDiv);
+        } else {
+            // 合法输入值的情况
+            searchInit();
+            searchValue = searchInput.value;
+            // 在标题、内容中查找
+            searchMatching(arrTitles, arrContents, searchValue);
+        }
+    }
+
+    // 每次搜索完成后的初始化
+    function searchInit() {
+        arrResults = [];
+        indexItem = [];
+        searchResults.innerHTML = '';
+        searchResults.style.display = 'block';
+    }
+
+    function searchMatching(arr1, arr2, input) {
+        // 忽略输入大小写
+        input = new RegExp(input, 'i');
+        var step = 10;
+        // 在所有文章标题、内容中匹配查询值
+        for (i = 0; i < itemLength; i++) {
+            var indexContent = arr2[i].search(input);
+            //标题匹配
+            if (arr1[i].search(input) != -1) {
+                indexItem.push(i); // 保存匹配值的索引
+                if (indexContent != -1) {
+                    startindex = (indexContent - step) >= 0 ? (indexContent - step) : 0;
+                    var searchcontent = arr2[i].slice(indexContent - step, indexContent + 5)
+                    arrResults.push("....." + searchcontent + ".....");
+                } else
+                    arrResults.push("");
+            }
+            //内容匹配
+            else if (indexContent != -1) {
+                indexItem.push(i); // 保存匹配值的索引
+
+                startindex = (indexContent - step) >= 0 ? (indexContent - step) : 0;
+                var searchcontent = arr2[i].slice(indexContent - step, indexContent + 5)
+                arrResults.push("....." + searchcontent + ".....");
+            }
+        }
+
+        // 输出总共匹配到的数目
+        var totalDiv = tmpDiv.cloneNode(true);
+        totalDiv.innerHTML = '<b>总匹配：' + indexItem.length + ' 项<hr></b>';
+        searchResults.appendChild(totalDiv);
+
+        // 未匹配到内容的情况
+        if (indexItem.length == 0) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '未匹配到内容...';
+            searchResults.appendChild(itemDiv);
+        }
+
+        // 将所有匹配内容进行组合
+        for (i = 0; i < arrResults.length; i++) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerHTML = '<a data-pjax class="searchresults" href="' + arrLinks[indexItem[i]] + '"><b>[' +
+                arrTitles[indexItem[i]] +
+                ']</b><p>' + arrResults[i] + '</p></a><hr />';
+            searchResults.appendChild(itemDiv);
+        }
+    }
+</script>
+
+
+
+<!--------------------- 菜单栏图标加载功能👇 ----------------------->
+<script>
+var menulist = $(".menuicon");
+var menulength = menulist.length;
+for (var i = 0; i < menulength; i++) {
+    var altname = menulist.eq(i).attr("alt");
+    var iconurl = icondict[altname];
+    if (iconurl == undefined || iconurl == '')
+        continue;
+    if (iconurl == 'Home') {
+        menulist.eq(i).attr("src", "https://blog.nonfin.cn/media/images/Home.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Archive') {
+menulist.eq(i).attr("src", "https://blog.nonfin.cn/media/images/Archive.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Tag') {
+menulist.eq(i).attr("src", "https://blog.nonfin.cn/media/images/Tag.png");
+menulist.eq(i).show();
+} else if (iconurl == 'About') {
+menulist.eq(i).attr("src", "https://blog.nonfin.cn/media/images/About.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Talk') {
+menulist.eq(i).attr("src", "https://blog.nonfin.cn/media/images/Talk.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Friends') {
+menulist.eq(i).attr("src", "https://blog.nonfin.cn/media/images/Friends.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Fly') {
+menulist.eq(i).attr("src", "https://blog.nonfin.cn/media/images/wind.png");
+menulist.eq(i).show();
+} else {
+menulist.eq(i).attr("src", iconurl);
+menulist.eq(i).show();
+}
+}
+</script>
+<!--------------------- 菜单栏图标加载功能👆 ----------------------->
+
+<script>
+    //--------------------bber-onetalk加载👇--------------------------------
+    function bberonetalkLoad(){
+        bberjsonurl = '';
+        if ( $("#bber-talk").length > 0 ) {
+        jsonUrl = bberjsonurl
+        $.getJSON(jsonUrl+"?t="+Date.parse( new Date()),function(res){
+        var bberHtml = ''
+        $.each(res.data, function(i, item){
+            d = new Date(item.date)
+            date = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate() +' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds()
+            dataTime = '<span class="datatime">'+date+'</span>'
+            bberHtml += '<li class="item item-'+(i+1)+'">'+dataTime+'： <a data-pjax href="https://blog.nonfin.cn/bber">'+item.content+'</a></li>'
+        });
+        $('#bber-talk').append('<span class="index-talk-icon"><svg viewBox="0 0 1024 1024" width="21" height="21"><path d="M184.32 891.667692c-12.603077 0-25.206154-2.363077-37.809231-7.876923-37.021538-14.966154-59.864615-49.624615-59.864615-89.009231v-275.692307c0-212.676923 173.292308-385.969231 385.969231-385.969231h78.76923c212.676923 0 385.969231 173.292308 385.969231 385.969231 0 169.353846-137.846154 307.2-307.2 307.2H289.083077l-37.021539 37.021538c-18.904615 18.116923-43.323077 28.356923-67.741538 28.356923zM472.615385 195.347692c-178.018462 0-322.953846 144.935385-322.953847 322.953846v275.692308c0 21.267692 15.753846 29.144615 20.48 31.507692 4.726154 2.363077 22.055385 7.876923 37.021539-7.08923l46.473846-46.473846c6.301538-6.301538 14.178462-9.452308 22.055385-9.452308h354.461538c134.695385 0 244.184615-109.489231 244.184616-244.184616 0-178.018462-144.935385-322.953846-322.953847-322.953846H472.615385z"></path><path d="M321.378462 512m-59.076924 0a59.076923 59.076923 0 1 0 118.153847 0 59.076923 59.076923 0 1 0-118.153847 0Z"></path><path d="M518.301538 512m-59.076923 0a59.076923 59.076923 0 1 0 118.153847 0 59.076923 59.076923 0 1 0-118.153847 0Z"></path><path d="M715.224615 512m-59.076923 0a59.076923 59.076923 0 1 0 118.153846 0 59.076923 59.076923 0 1 0-118.153846 0Z"></path></svg></span><ul class="talk-list">'+bberHtml+'</ul>')
+        //Lately({ 'target': '#bber-talk .datatime' });
+        });
+        function Roll (){
+        var list_li = $('.talk-list li'),cur_li = list_li.first(),last_li = list_li.last();
+        last_li.after(cur_li);
+        };
+        setInterval(Roll,3000);
+    }
+    }
+  //--------------------bber-onetalk加载👆--------------------------------
+</script>
+
+<script>
+    var ClicksideState = 1
+    var cur_readingmode = false
+    function readingmode(){
+        if (!cur_readingmode){
+            if(menupos == 'left'){
+                if(ClicksideState==1)
+                menu_openclose1()
+            }
+            $("#tab1").fadeOut(50)
+            $("#bg").fadeOut(50)
+            $(".navbar").fadeOut(50)
+            $(".markdownIt-TOC li a").css("color","black")
+            cur_readingmode = true
+        }else{
+            if(menupos == 'left'){
+                if(ClicksideState==0)
+                    menu_openclose1()
+            }
+            $("#tab1").fadeIn(50)
+            $("#bg").fadeIn(50)
+            $(".navbar").fadeIn(50)
+            $(".markdownIt-TOC li a").css("color","antiquewhite")
+            cur_readingmode = false  
+        }
+    }
+</script>
+
+
+<!----夜间模式👇-->
+<script>
+    var moonlightState = false
+    function moonlight(){
+        if(!moonlightState){
+            $("#bg").fadeOut(200)
+            $('body').css("background","rgba(0,0,0,0.8)")
+            $(".markdownIt-TOC li a").css("color","white")
+            $(".text p, .text ul").css("color","white")
+            $("#articlecontent").css("color","white")
+            $(".post-copyright").css("background","rgba(10,10,10,0.5)")
+            $('blockquote').css("background","rgba(10,10,10,0.6)")
+            $("#articlecontent").css("background","rgba(10,10,10,0.5)")
+            moonlightState = true
+            $(".moon").attr("src","https://blog.nonfin.cn/media/images/sun.png")
+        }else{
+            $("#bg").show()
+            $(".markdownIt-TOC li a").css("color","antiquewhite")
+            $(".text p, .text ul").css("color","rgba(0, 0, 0, 0.7)")
+            $("#articlecontent").css("color","black")
+            $(".post-copyright").css("background","#f9f9f9")
+            $('blockquote').css("background","#eff8f0")
+            $("#articlecontent").css("background","white")
+            $(".moon").attr("src","https://blog.nonfin.cn/media/images/moon.png")
+            $('body').css("background","white")
+            moonlightState = false
+        }
+    }
+</script>
+<!----夜间模式👆--></div>
+            <!--------------- pc端菜单栏👆 ---------------->
+
+            <!-- ----------------左侧菜单栏html 👇-------------------------------------->
+            
+            <div>
+                <div id="tab1" class="tab">
+                    <div class="bars">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="close"></div>
+                </div>
+                <div class="col-md-1 col-lg-3"></div>
+                <!-- main标签，pjax渲染时加载以下内容👇 -->
+                <div id="main" class="col-xs-12 col-sm-12 col-md-12 col-lg-7" style="padding:0;">
+                    <div class="readingmode" onclick="readingmode()">阅</div>
+                    <link rel="stylesheet" href="https://blog.nonfin.cn/media/css/font-awesome.css">
+
+<body>
+    <div class="allcontent" id="postdetail">
+        <div class="postshow postpadding" style="padding-bottom: 0;">
+            
+            <div class="postdetailimg">
+                <img src="https://cdn.jsdelivr.net/gh/PhoenixLjw/img@latest/blog-images/v2-16d3cf2ddca7d59a11c30ee6d15e71b3_1440w.jpg" class="postimage" style="cursor:auto">
+            </div>
+            <div class="postinfo-detail">
+                <div class="postdate"><i class="fa fa-calendar"></i>2019-11-25</div>
+                <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 12 min read</div>
+                <div class="posttag">
+                    
+                    <a data-pjax href="https://blog.nonfin.cn/nqZoB5T-tT/" class="postlink">
+                        <i class="fa fa-tag"></i> Win10
+                    </a>
+                    
+                </div>
+            </div>
+            
+        <div id="articlecontent">
+            <div id="texttitle" style="text-align: center">
+                <h2 id="ptitle">Powershell美化与强化</h2>
+                <!-- id 将作为查询条件 -->
+                <div id="pl" style="display:none">https://blog.nonfin.cn/Powershell-mei-hua-yu-qiang-hua/</div>
+                <div id="rootaddr" style="display:none">https://blog.nonfin.cn</div>
+                
+                    
+                
+            </div>
+            <div class="text ">
+                <p>巨硬一直在推广Powershell以替代cmd，但是Powershell丑陋的界面实在令人难以忍受，尤其是在习惯了Linux美丽的终端界面后。如何美化Powershell？下面介绍一些方法以改善Powershell的使用体验。</p>
+<!--more-->
+<hr>
+<h2 id="scoopwindows下的强大包管理器">scoop|Windows下的强大包管理器</h2>
+<h3 id="包管理器"><strong>包管理器</strong></h3>
+<p>包管理器（package manager）是开发人员常用的生产力工具，Ubuntu上的<code>Apt</code>和MacOS上的<code>Homebrew</code>等的使用都让开发环境的搭建变得无比丝滑。这里的包，可以理解成广义上的软件，不仅包含常见的基于图形用户界面（GUI）的软件，还包含基于命令行界面（CLI）的开发工具。简单说，包管理器就是一个软件自动化管理工具。</p>
+<p>如今，Windows也有了历经时间考验的包管理器：<code>Chocolatey</code>，<code>Scoop</code>和。其中，<code>Chocolatey</code>整个社区发布的安装脚本有3000多个，而<code>Scoop</code>官方仓库发布的安装脚本有2000多个。</p>
+<p>总的来看，上述两者各有长短。<code>Chocolatey</code>操作简单，涵盖大量 GUI 软件，但自定义程度低，适合普通程序员甚至没有编程基础的人使用；相比之下，<code>Scoop</code>自定义程度高，虽然默认涵盖的 GUI 软件少，但扩展性强，可以非常方便的自己定制安装脚本。适合有<strong>喜欢折腾的</strong>程序员使用。经过一定考量，我选择使用<code>Scoop</code>。</p>
+<h3 id="安装">安装</h3>
+<ol>
+<li>
+<p>保证电脑有PowerShell 3</p>
+</li>
+<li>
+<p>如果你没有打开运行远程签名的脚本文件则会提示你输入下面的指令：</p>
+<pre><code class="language-powershell">Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+</code></pre>
+</li>
+<li>
+<p>在PowerShell下输入</p>
+<pre><code class="language-powershell">iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+</code></pre>
+</li>
+<li>
+<p>等下在下完就可以使用<code>scoop help</code>来查看命令行操作</p>
+</li>
+</ol>
+<hr>
+<h3 id="常用指令">常用指令</h3>
+<pre><code class="language-bash">alias      Manage scoop aliases
+bucket     Manage Scoop buckets
+cache      Show or clear the download cache
+checkup    Check for potential problems
+cleanup    Cleanup apps by removing old versions
+config     Get or set configuration values
+create     Create a custom app manifest
+depends    List dependencies for an app
+export     Exports (an importable) list of installed apps
+help       Show help for a command
+home       Opens the app homepage
+install    Install apps
+list       List installed apps
+reset      Reset an app to resolve conflicts
+search     Search available apps
+status     Show status and check for new app versions
+uninstall  Uninstall an app
+update     Update apps, or Scoop itself
+which      Locate a program path
+
+# 设置代理(http),port自行指定
+scoop config proxy 127.0.0.1:port
+</code></pre>
+<hr>
+<h3 id="安装软件">安装软件</h3>
+<p><code>scoop</code>安装的程序都在<code>C:\Users\xxx\scoop\apps</code>文件夹下。</p>
+<ul>
+<li>
+<p>导出软件列表</p>
+<pre><code class="language-powershell">scoop.cmd export &gt; C:/Users/***/scoop/ScoopAppList.txt
+</code></pre>
+</li>
+<li>
+<p>版本切换</p>
+<pre><code class="language-powershell">scoop reset python
+</code></pre>
+<pre><code class="language-powershell">scoop reset python27
+</code></pre>
+</li>
+</ul>
+<hr>
+<h3 id="bucket软件源">Bucket软件源</h3>
+<p>由于scoop比较小众，软件相比chocolatey较少，不过scoop有一个强大的bucket软件源策略，而且有社区来维护，常用软件基本能够找到。</p>
+<ul>
+<li>
+<p>社区地址：</p>
+<p>https://github.com/rasa/scoop-directory/blob/master/by-score.md</p>
+</li>
+<li>
+<p>bucket语法：scoop bucket add [软件源名字(随意)] [源地址]</p>
+</li>
+<li>
+<p>bucket源推荐：</p>
+<p><strong>官方：</strong></p>
+<pre><code class="language-bash">main # 默认bucket，安装scoop会自动添加
+extras # 最推荐，绝大多数软件可从本bucket找到
+versions
+nightlies # 不稳定版本，适合开发人员使用
+nirsoft
+php # 比较完整的PHP版本管理
+nerd-fonts # Nerd字体包，比较全
+nonportable # 安装版本应用，scoop默认是portbale应用
+java # 比较完整的Java版本管理
+games # 包含部分游戏以及模拟器
+jetbrains # 个人推荐通过jetbrains-toolbox安装管理
+</code></pre>
+<p><strong>国内常用软件：</strong></p>
+<ol>
+<li>scoopet，国内大佬维护的科研方向软件源</li>
+</ol>
+<pre><code class="language-powershell">scoop bucket add scoopet https://github.com/integzz/scoopet
+</code></pre>
+<p>scoopet 库包含的安装脚本分为如下四类：</p>
+<ul>
+<li>科研工具：如 miniconda（国内镜像），julia（国内镜像），copytranslator，gephi，geogebra，mendeley，netlogo</li>
+<li>开发辅助：如 cyberduck，virtualbox，vmware</li>
+<li>日常办公：如 adobe acrobat，wpsoffice，百度网盘，灵格斯词霸</li>
+<li>社交休闲：如 you-get，网易云音乐，微信</li>
+</ul>
+<ol start="2">
+<li>dodorz，某种程度算是extra的补充，偏国内应用</li>
+</ol>
+<pre><code class="language-powershell">scoop bucket add dodorz https://github.com/dodorz/scoop-bucket
+</code></pre>
+</li>
+</ul>
+<p>Windows包关系体系目前还不算完善，scoop大部分软件属于国外，下载速度并不乐观，所以scoop的学习成本并不低。当然也可以通过安装<code>aira2</code>进行加速，但是对于一些特别的软件还是得通过学习强国完成，因此会需要开/关<code>aria2</code>功能，比较麻烦。如果你爱折腾，相信这是一款使用后就会爱不释手的管理器。</p>
+<h3 id="美化powershell">美化Powershell</h3>
+<h4 id="安装-concfg">安装 <code>concfg</code></h4>
+<p><a href="https://github.com/lukesampson/concfg">lukesampson/concfg</a> 可以用来导入和导出 Windows 控制台的设置。</p>
+<pre><code class="language-powershell">scoop install concfg
+</code></pre>
+<hr>
+<h4 id="安装-git">安装 <code>git</code></h4>
+<pre><code class="language-powershell">scoop install git
+</code></pre>
+<p>此时，<code>git</code> 的环境变量是设置在当前用户下的。如果需要设置在系统下，可以通过以下语句安装。需要使用 <code>sudo</code> 来提升权限。</p>
+<pre><code class="language-powershell">scoop install sudo
+sudo scoop install -g git
+</code></pre>
+<p>更新：现可通过<code>winget</code>安装：</p>
+<pre><code class="language-powershell">winget install Git
+</code></pre>
+<hr>
+<h4 id="安装-posh-git">安装 <code>posh-git</code></h4>
+<p><code>posh-git</code> 是 <code>oh-my-posh</code> 的依赖，在 <code>scoop</code> 的 <code>extras</code> 包中。</p>
+<pre><code class="language-powershell">scoop install posh-git
+</code></pre>
+<hr>
+<h4 id="安装-oh-my-posh">安装 <code>oh-my-posh</code></h4>
+<p><code>oh-my-posh</code> 在 <code>scoop</code> 的主包中，直接安装即可。这个软件能够让你的 <code>PowerShell</code> 有着接近 <code>Linux</code> 中 <code>Oh-my-zsh</code> 的效果。</p>
+<pre><code class="language-powershell">scoop install oh-my-posh
+</code></pre>
+<hr>
+<h4 id="模块的另一种安装方式">模块的另一种安装方式</h4>
+<p>用管理员运行Powershell：</p>
+<pre><code class="language-powershell">Install-Module posh-git
+Install-Module oh-my-posh
+Install-Module -Name PSReadLine -Force -SkipPublisherCheck
+Install-Module Get-ChildItemColor -AllowClobber
+</code></pre>
+<hr>
+<h4 id="应用配置">应用配置</h4>
+<p>新建一个 <code>1.json</code> 文件，键入如下内容，也可以根据自身需求自行修改。</p>
+<pre><code class="language-json">{  
+	&quot;cursor_size&quot;: &quot;small&quot;,  
+	&quot;command_history_length&quot;: 500,  
+	&quot;num_history_buffers&quot;: 4,  
+	&quot;command_history_no_duplication&quot;: false,  
+	&quot;quick_edit&quot;: true,  
+	&quot;insert_mode&quot;: true,  
+	&quot;load_console_IME&quot;: true,  
+	&quot;font_face&quot;: &quot;DejaVu Sans Mono for Powerline&quot;,  
+	&quot;font_true_type&quot;: true,  
+	&quot;font_size&quot;: &quot;0x18&quot;,  
+	&quot;font_weight&quot;: 0,  
+	&quot;screen_buffer_size&quot;: &quot;120x30000&quot;,  
+	&quot;window_size&quot;: &quot;120x30&quot;,  
+	&quot;fullscreen&quot;: false,  
+	&quot;popup_colors&quot;: &quot;cyan,white&quot;,  
+	&quot;screen_colors&quot;: &quot;white,black&quot;,  
+	&quot;black&quot;: &quot;#1E1E1E&quot;, 
+    	&quot;dark_blue&quot;: &quot;#2472C8&quot;,  
+    	&quot;dark_green&quot;: &quot;#0DBC79&quot;,  
+    	&quot;dark_cyan&quot;: &quot;#11A8CD&quot;,  
+    	&quot;dark_red&quot;: &quot;#CD3131&quot;,  
+    	&quot;dark_magenta&quot;: &quot;#BC3FBC&quot;,  
+    	&quot;dark_yellow&quot;: &quot;#E5E510&quot;,  
+    	&quot;gray&quot;: &quot;#E5E5E5&quot;,  
+    	&quot;dark_gray&quot;: &quot;#666666&quot;,  
+    	&quot;blue&quot;: &quot;#3B8EEA&quot;,  
+    	&quot;green&quot;: &quot;#23D18B&quot;,  
+    	&quot;cyan&quot;: &quot;#29B8DB&quot;,  
+    	&quot;red&quot;: &quot;#F14C4C&quot;,  
+    	&quot;magenta&quot;: &quot;#D670D6&quot;,  
+    	&quot;yellow&quot;: &quot;#F5F543&quot;,  
+    	&quot;white&quot;: &quot;#E5E5E5&quot;
+}
+</code></pre>
+<p>在所在文件夹处打开 <code>PowerShell</code>，输入 <code>concfg import 1.json -n</code> 后开启新 <code>PowerShell</code> 窗口可以看到显示效果已经改变。</p>
+<p>**注：**使用过程中发现，更新 <code>git</code> 后，字体会出现问题，不知道是什么原因。出现这个问题也不用担心，只需要重新执行一遍上面这个应用配置的过程即可。</p>
+<hr>
+<h4 id="启用-oh-my-posh并设置主题">启用 <code>oh-my-posh</code>并设置主题</h4>
+<p>敲 <code>$profile</code> 可以让 PowerShell 告诉我们这个文件的路径是什么。</p>
+<p>编辑该文件，如果不存在则手动创建，再其中输入</p>
+<pre><code class="language-powershell">Set-PSReadlineOption -EditMode Emacs
+Import-Module posh-git
+Import-Module oh-my-posh
+Import-Module Get-ChildItemColor
+Import-Module WindowsConsoleFonts
+Set-Alias l Get-ChildItemColor -option AllScope
+Set-Alias ls Get-ChildItemColorFormatWide -option AllScope
+Set-Theme Paradox
+</code></pre>
+<h4 id="安装powerline字体">安装powerline字体</h4>
+<p>请在这里下载 PowerLine 字体（下面命令中已有）：</p>
+<ul>
+<li><a href="https://github.com/powerline/fonts">powerline/fonts: Patched fonts for Powerline users.</a></li>
+</ul>
+<pre><code class="language-powershell"># 或者依次执行如下指令即可
+git clone https://github.com/powerline/fonts.git
+cd .\fonts\
+.\install.ps1
+cd ..
+del .\fonts\ -Recurse -Force
+</code></pre>
+<p>指令执行完后修改终端字体为<code>DejaVu Sans Mono for Powerline</code>。</p>
+<hr>
+<h2 id="cmderwindows下的强大终端"><s><a href="https://www.jeffjade.com/2016/01/13/2016-01-13-windows-software-cmder/">Cmder|Windows下的强大终端</a></s></h2>
+<p><em><strong><u>更新：本栏目可以不用看了，现在已经换到了<code>Windows Terminal</code>。</u></strong></em></p>
+<h3 id="安裝">安裝</h3>
+<p><a href="http://cmder.net/">Cmder官网</a><code>http://cmder.net/</code>。作为一个压缩档的存在, 可即压即用。你甚至可以放到USB就可以虽时带着走，连调整过的设定都会放在这个目录下，不会用到系统机码(Registry)，所以也很适合放在Dropbox / Google Drive / OneDrive共享于多台电脑。</p>
+<p>下载的时候，有两个版本，分别是mini与full版；唯一的差别在于有没有内建msysgit工具，这是Git for Windows的标准配备；全安装版 cmder 自带了 msysgit, 压缩包 23M, 除了 git 本身这个命令之外, 里面可以使用大量的 linux 命令；比如 grep, curl(没有 wget)； 像vim, grep, tar, unzip, ssh, ls, bash, perl 对于爱折腾的Coder更是痛点需求。</p>
+<hr>
+<h3 id="配置">配置</h3>
+<ol>
+<li>
+<p>把 <strong>cmder</strong> 加到环境变量<br>
+可以把<code>Cmder.exe</code>存放的目录添加到系统环境变量；加完之后,<code>Win+r</code>一下输入<code>cmder</code>,即可。</p>
+</li>
+<li>
+<p><strong>添加 cmder 到右键菜单</strong></p>
+</li>
+<li>
+<p>在某个文件夹中打开终端, 这个是一个(超级)痛点需求, 实际上上一步的把 <strong>cmder</strong> 加到环境变量就是为此服务的, 在管理员权限的终端输入以下语句即可:</p>
+<pre><code class="language-powershell">Cmder.exe /REGISTER ALL
+</code></pre>
+</li>
+<li>
+<p>搭配<code>autoHotkey</code>为Cmder配置自己喜欢的快捷键(个人用<code>Alt+r</code>)：</p>
+<pre><code class="language-powershell">!r:: run, D:\**\cmder\Cmder.exe
+</code></pre>
+</li>
+</ol>
+<hr>
+<h3 id="常用功能">常用功能</h3>
+<p>1, Cmder常用快捷键<br>
+跟一般浏览器页签操作习惯一致:</p>
+<blockquote>
+<p>可以利用<code>Tab</code>，自动路径补全(爽,赞！)；<br>
+可以利用<strong>Ctrl+T</strong>建立新页签；<br>
+利用<strong>Ctrl+W</strong>关闭页签;<br>
+还可以透过<strong>Ctrl+Tab</strong>切换页签;<br>
+<strong>Alt+F4</strong>：关闭所有页签<br>
+<strong>Alt+Shift+1</strong>：开启cmd.exe<br>
+<strong>Alt+Shift+2</strong>：开启powershell.exe<br>
+<strong>Alt+Shift+3</strong>：开启powershell.exe (系统管理员权限)<br>
+<strong>Ctrl+1</strong>：快速切换到第1个页签<br>
+<strong>Ctrl+n</strong>：快速切换到第n个页签( n值无上限)<br>
+<strong>Alt + enter</strong>： 切换到全屏状态；<br>
+<strong>Ctr+r</strong> 历史命令搜索;<br>
+<strong>End, Home, Ctrl</strong> : Traversing text with as usual on Windows</p>
+</blockquote>
+<p>2, 可在视窗内搜寻画面上出现过的任意关键字。<br>
+3, 新增页签按钮，可透过滑鼠新增页签。<br>
+4, 切换页签按钮，可透过滑鼠切换页签。<br>
+5, 锁定视窗，让视窗无法再输入。<br>
+6, 切换视窗是否提供卷轴功能，启动时可查询之前显示过的内容。<br>
+7, 按下滑鼠左键可开启系统选单，滑鼠右键可开启工具选项视窗。 Win+Alt+P ：开启工具选项视窗</p>
+<hr>
+<h2 id="基本应用安装">基本应用安装</h2>
+<h3 id="mariadb">MariaDB</h3>
+<p>虽然WSL能够支持MariaDB，不过因为没有<code>systemd</code>指令在，服务无法启动（除了Ubuntu是用<code>service</code>启动可以支持以外），而且在WSL中<code>mysqld</code>进程一般会消耗100~200M内存，而win下只要10M左右，所以果断选择安装在win下。</p>
+<pre><code class="language-powershell">scoop install mariadb
+</code></pre>
+<p>安装完成后不像Linux下可以直接指令启动，我们需要切换到<code>.\mariadb\bin</code>目录下：</p>
+<pre><code class="language-powershell">mysqld --install
+mysqld --initialized
+</code></pre>
+<p>之后去服务中开启mysql:</p>
+<pre><code>win + R 
+services.msc
+</code></pre>
+<p>然后就可以愉快地玩耍mariadb了。</p>
+<hr>
+<h3 id="redis">Redis</h3>
+<p>同MariaDB，不用Ubuntu的话没法使用，所以换到win下。</p>
+<pre><code class="language-powershell">scoop install redis
+</code></pre>
+<p>安装完成后可以使用<code>redis-server</code>运行redis。</p>
+<p>如何让redis作为服务开机自启呢？我们去服务那里，是找不到redis-server服务的，所以我们需要切换到reids安装目录：</p>
+<pre><code class="language-powershell">redis-server --service-install redis.windows-service.conf --loglevel verbose
+</code></pre>
+<p>将redis-server注册到服务里</p>
+<p>但是，由于<code>Redis</code>默认以<code>Network Service</code>用户注册服务，所以在访问非程序运行的目录时会提示无权限错误,</p>
+<p>所以我们需要到服务中找到redis，把登陆身份换成本地系统登陆，然后手动启动服务。</p>
+<p>以下是redis服务的相关指令。</p>
+<pre><code class="language-powershell"># 启动服务
+redis-server --service-start
+
+# 停止服务
+redis-server --service-stop
+
+# 卸载服务
+redis-server --service-uninstall
+</code></pre>
+<hr>
+<p><em><strong><u>更新</u></strong></em></p>
+<p>不推荐在win下安装<code>MariaDB</code>和<code>redis</code>，实在要用的话就在<code>WSL2</code>中或者<code>Docker For Windows</code>下运行吧。</p>
+
+            </div>
+            <hr style="width: 80%;">
+            
+            <div class="postfooter">
+                <ul class="post-copyright">
+                    <li><strong>文章作者：</strong></li>
+            <li><strong>原文链接：</strong>https://blog.nonfin.cn/Powershell-mei-hua-yu-qiang-hua/</li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用<i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA
+                许可协议。转载请注明出处！</li>
+            </ul>
+        </div>
+        
+            <div class="shareContainer">
+                <div class="share" style="height:30px;">
+                    <a class="qq" href=""><i><img class="shareicon"
+                                src="https://blog.nonfin.cn/media/images/qqs.png" alt=""></i></a>
+                    <a class="wechat" href=""><i><img class="shareicon"
+                                src="https://blog.nonfin.cn/media/images/wechats.png" alt=""></i></a>
+                    <a class="weibo" href=""><i><img class="shareicon"
+                                src="https://blog.nonfin.cn/media/images/weibos.png" alt=""></i></a>
+                    <a class="qzone" href=""><i><img class="shareicon"
+                                src="https://blog.nonfin.cn/media/images/qzones.png" alt=""></i></a>
+                    <a class="douban" href=""><i><img class="shareicon"
+                                src="https://blog.nonfin.cn/media/images/doubans.png" alt=""></i></a>
+                    <a class="facebook" href=""><i><img class="shareicon"
+                                src="https://blog.nonfin.cn/media/images/facebooks.png" alt=""></i></a>
+                    <a class="twitter" href=""><i><img class="shareicon"
+                                src="https://blog.nonfin.cn/media/images/twitter.png" alt=""></i></a>
+                </div>
+            </div>
+            
+        <div id="otherpost">
+            
+            <a  data-pjax class="prev-post-pc" href="https://blog.nonfin.cn/vscode-wsl-da-zao-sheng-chan-li-gong-ju/"  style="color: black;">
+                <div id="ppcontainer">
+                    
+                    <img src="https://cdn.jsdelivr.net/gh/PhoenixLjw/img@latest/blog-images/fozd_wk70ku7adg1r_skrh4wbym.png" style="width: 100%;" class="opimg">
+                    
+                    <h4 class="optitle">VScode + WSL打造生产力工具</h4>
+                </div>
+            </a>
+            <div class="prev-post">
+                上一篇 <a  data-pjax href="https://blog.nonfin.cn/vscode-wsl-da-zao-sheng-chan-li-gong-ju/">VScode + WSL打造生产力工具</a>
+            </div>
+            
+            
+            <a data-pjax class="next-post-pc" href="https://blog.nonfin.cn/chu-ci-shang-shou-centos-7-fu-wu-qi-pei-zhi/"  style="color: black;">
+                <div id="npcontainer">
+                    
+                    <img src="https://cdn.jsdelivr.net/gh/PhoenixLjw/img@latest/blog-images/Centos7-banner.png" style="width: 100%;" class="opimg">
+                    
+                    <h4 class="optitle">初次上手：CentOS 7 服务器配置</h4>
+                </div>
+            </a>
+            <div class="next-post">
+                下一篇 <a  data-pjax href="https://blog.nonfin.cn/chu-ci-shang-shou-centos-7-fu-wu-qi-pei-zhi/">初次上手：CentOS 7 服务器配置</a>
+            </div>
+            
+        </div>
+    </div>
+    </div>
+    </div>
+    <!-- 弹窗 -->
+    <div id="myModal" class="modal">
+        <img class="modal-content" id="img01">
+    </div>
+</body>
+<script>
+    //文章阅读热度
+    var pl = $("#pl").html();
+    var rootaddr = $("#rootaddr").html();
+    pl = pl.replace(rootaddr, "");
+    $("#hotnum").attr('id', pl);
+</script>
+                    <div class="toc-container">
+                        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#scoopwindows%E4%B8%8B%E7%9A%84%E5%BC%BA%E5%A4%A7%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8">scoop|Windows下的强大包管理器</a>
+<ul>
+<li><a href="#%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8"><strong>包管理器</strong></a></li>
+<li><a href="#%E5%AE%89%E8%A3%85">安装</a></li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4">常用指令</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6">安装软件</a></li>
+<li><a href="#bucket%E8%BD%AF%E4%BB%B6%E6%BA%90">Bucket软件源</a></li>
+<li><a href="#%E7%BE%8E%E5%8C%96powershell">美化Powershell</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85-concfg">安装 <code>concfg</code></a></li>
+<li><a href="#%E5%AE%89%E8%A3%85-git">安装 <code>git</code></a></li>
+<li><a href="#%E5%AE%89%E8%A3%85-posh-git">安装 <code>posh-git</code></a></li>
+<li><a href="#%E5%AE%89%E8%A3%85-oh-my-posh">安装 <code>oh-my-posh</code></a></li>
+<li><a href="#%E6%A8%A1%E5%9D%97%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F">模块的另一种安装方式</a></li>
+<li><a href="#%E5%BA%94%E7%94%A8%E9%85%8D%E7%BD%AE">应用配置</a></li>
+<li><a href="#%E5%90%AF%E7%94%A8-oh-my-posh%E5%B9%B6%E8%AE%BE%E7%BD%AE%E4%B8%BB%E9%A2%98">启用 <code>oh-my-posh</code>并设置主题</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85powerline%E5%AD%97%E4%BD%93">安装powerline字体</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#cmderwindows%E4%B8%8B%E7%9A%84%E5%BC%BA%E5%A4%A7%E7%BB%88%E7%AB%AF"><s>Cmder|Windows下的强大终端</s></a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%9D">安裝</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE">配置</a></li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD">常用功能</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E5%AE%89%E8%A3%85">基本应用安装</a>
+<ul>
+<li><a href="#mariadb">MariaDB</a></li>
+<li><a href="#redis">Redis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                    </div>
+                    <div class="tog">
+                        <div class="toggleContainer">
+                            <div class="toggle">
+                                <i class="fas fa-angle-double-up"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👇 ------------------------->
+                    <div id="comment" class="comment">
+                        <div class="commentcontainer">
+                            
+                                
+                            
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👆 ------------------------->
+                </div>
+                <!-- main标签，pjax渲染时加载以上内容👆 -->
+                <div class="col-md-1 col-lg-2"></div>
+                <div id="bg">
+                </div>
+            </div>
+            <!-- ----------------左侧菜单栏html 👆-------------------------------------->
+            
+        </div>
+        <!-- aplayer播放器加载👇 -->
+            
+        <!-- aplayer播放器加载👆 -->
+    </div>
+    <!-- 背景图加载方式👇 -->
+    <div id="bgchoice" style="display: none">default
+                </div>
+                
+                <div id="bgurl" style="display:none">/media/images/custom-bgimage.png</div>
+                
+    <!-- 背景图加载方式👆 -->
+</body>
+
+<script>
+    //初始化
+    //更换twikoo头像
+    setTimeout(replaceAvatar,1000);
+    setTimeout(replaceAvatar,2000);
+    setTimeout(replaceAvatar,8000);
+    // --------为每张图片添加懒加载（lazyload）标签-->懒加载功能 👇------------
+    lazyload();
+    //为文章内所有代码块添加代码复制功能 👇
+    codeinit();
+    // ------代码高亮显示功能-------------
+    hljs.initHighlightingOnLoad();
+    if (shareChoice)
+        shareInit();
+    if (donateChoice)
+        donateInit();
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👇 ---------------->
+
+<!------------------ 加载live2d模型功能（看板娘）👆 ---------------->
+
+
+<!----------------------- 返回顶部按钮功能👇 --------------------->
+<script>
+    $(function () {
+        $('.toggleContainer').click(function () {
+            $('html,body').animate({
+                scrollTop: '0px'
+            }, 800);
+        });
+        $(window).scroll(function () {
+            var st = $(window).scrollTop();
+            if (st > 30) {
+                $(".toggleContainer").fadeIn(400);
+            } else {
+                $(".toggleContainer").fadeOut(100);
+            }
+        });
+    });
+</script>
+<!----------------------- 返回顶部按钮功能👆 --------------------->
+
+
+<!------------ 加载全局背景图功能👇（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
+<script>
+    var bgchoice = "default"
+    var bg = $('#bg');
+    var bgurl = document.getElementById("bgurl").innerHTML;
+    if (bgchoice == 'default')
+    {
+        for (var i = 0; i < 3; i++)
+            bgurl = bgurl.replace("\\", "/");
+        bgurl = "https://blog.nonfin.cn/" + bgurl;
+    }
+    bg.css("background", "url('" + bgurl + "')");
+
+    window.onload = function () {
+        aplayerbtnInit();
+    }
+</script>
+<!------------ 加载全局背景图功能👆（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
+
+
+
+
+<script src="https://blog.nonfin.cn/media/js/index.js"></script>
+
+
+<script>
+    //加载后的事件同步（阅读量、移动端评论等
+    window.onload = function () {
+    //代码块高亮渲染
+    document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+            hljs.lineNumbersBlock(block);
+    });
+        getHotnum();
+        var sharepc = $(".share").eq(0).html();
+        $(".share").eq(1).html(sharepc);   //插件只会寻找一个分享标签渲染，所以需要手动添加到移动端
+        aplayerbtnInit();
+        $(".hljs").css({
+            "padding": "20px"
+        })
+    }
+</script>
+
+<!-- <script src="https://blog.nonfin.cn/media/js/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-live-query-min.js"></script> -->
